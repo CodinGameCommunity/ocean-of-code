@@ -1,0 +1,11 @@
+read width:int height:int myId:int
+loop height read line:string(width)
+
+write 7 7
+
+gameloop
+read x:int y:int myLife:int oppLife:int torpedoCooldown:int sonarCooldown:int silenceCooldown:int mineCooldown:int
+read sonarResult:word(3)
+read opponentOrders:string(200)
+
+write MOVE N TORPEDO
