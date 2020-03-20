@@ -104,7 +104,7 @@ public class Referee extends AbstractReferee {
 
 		player.sendInputLine(String.format("%d %d %d %d %s", player.getPosition().x, player.getPosition().y,
 				player.getLife(), opponent.getLife(), player.getCooldowns()));
-		player.sendInputLine(opponent.getLastResult());
+		player.sendInputLine(player.getLastResult());
 		player.sendInputLine(String.format("%s", opponent.getLastCommand()));
 		player.execute();
 
