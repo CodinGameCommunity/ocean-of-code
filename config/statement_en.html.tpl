@@ -7,6 +7,7 @@
             <span>The Goal</span>
         </h2>
         <div class="statement-goal-content">
+            This game is based on the board game Captain Sonar. <br>
             You pilot a submarine and you know that an enemy is present near you because you are listening its radio frequency communication.
             You don't know exactly where it is but you can hear all its orders.
             You and your opponent have <const>6</const> hit points. When a player's hit points reach <const>0</const>, the player loses.
@@ -103,7 +104,6 @@
             <br>
             <br>
             The following table shows, how different actions will be shown to your opponent:
-            <br>TODO: along with screenshot, as this table uses concrete examples and isn't abstract?
             <table>
                 <tr><th>Your action</th><th>Shown to opponent</th><th>comment</th></tr>
                 <tr>
@@ -147,13 +147,13 @@
                 <!-- END -->
             </table>
 
-            </div>
+        </div>
             <!-- Victory conditions -->
             <div class="statement-victory-conditions">
                 <div class="icon victory"></div>
                 <div class="blk">
                     <div class="title">Victory Conditions</div>
-                    <div class="text">Have more lifes than your enemy at the end of the game.</div>
+                    <div class="text">Have more lifes than your enemy after 200 frames.</div>
                 </div>
             </div>
             <!-- Lose conditions -->
@@ -213,9 +213,9 @@
                     <li><var>x</var> and <var>y</var> represents your current position.</li>
                     <li><var>myLife</var> and <var>oppLife</var> gives the number of hit points remaining for, respectively, you and your opponent</li>
                     <li><var>torpedoCooldown</var> <var>sonarCooldown</var> <var>silenceCooldown</var> <var>mineCooldown</var> represent the cooldowns for each device
-                    <!-- BEGIN level1 level2 -->
+                        <!-- BEGIN level1 level2 -->
                         Devices unavailable in your league will have <const>-1</const>.
-                    <!-- END -->
+                        <!-- END -->
                     </li>
                 </ul>
                 <span class="statement-lineno">Line 2: </span> a string <var>sonarResult</var> which gives you the result of the <action>SONAR</action> action: <const>Y</const> for yes, <const>N</const> for no. It is <const>NA</const>, if no sonar was used. <br>
@@ -246,6 +246,17 @@
                     <!-- END -->
                     <li><action>MSG message</action></li>
                 </ul></div>
+        </div>
+
+        <!-- Protocol block -->
+        <div class="blk">
+            <div class="title">
+                Constraints
+            </div>
+            <div class="text">
+                Response time first turn &le; <const>1000</const> ms
+                <br> Response time per turn &le; <const>50</const> ms
+            </div>
         </div>
     </div>
 </div>

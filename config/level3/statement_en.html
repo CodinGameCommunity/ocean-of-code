@@ -7,6 +7,7 @@
             <span>The Goal</span>
         </h2>
         <div class="statement-goal-content">
+            This game is based on the board game Captain Sonar. <br>
             You pilot a submarine and you know that an enemy is present near you because you are listening its radio frequency communication.
             You don't know exactly where it is but you can hear all its orders.
             You and your opponent have <const>6</const> hit points. When a player's hit points reach <const>0</const>, the player loses.
@@ -91,7 +92,6 @@
             <br>
             <br>
             The following table shows, how different actions will be shown to your opponent:
-            <br>TODO: along with screenshot, as this table uses concrete examples and isn't abstract?
             <table>
                 <tr><th>Your action</th><th>Shown to opponent</th><th>comment</th></tr>
                 <tr>
@@ -131,13 +131,13 @@
                 </tr>
             </table>
 
-            </div>
+        </div>
             <!-- Victory conditions -->
             <div class="statement-victory-conditions">
                 <div class="icon victory"></div>
                 <div class="blk">
                     <div class="title">Victory Conditions</div>
-                    <div class="text">Have more lifes than your enemy at the end of the game.</div>
+                    <div class="text">Have more lifes than your enemy after 200 frames.</div>
                 </div>
             </div>
             <!-- Lose conditions -->
@@ -223,6 +223,17 @@
                     <li><action>TRIGGER X Y</action></li>
                     <li><action>MSG message</action></li>
                 </ul></div>
+        </div>
+
+        <!-- Protocol block -->
+        <div class="blk">
+            <div class="title">
+                Constraints
+            </div>
+            <div class="text">
+                Response time first turn &le; <const>1000</const> ms
+                <br> Response time per turn &le; <const>50</const> ms
+            </div>
         </div>
     </div>
 </div>
