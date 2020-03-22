@@ -17,7 +17,7 @@ public class TorpedoPower extends Power {
 	@Override
 	public boolean executeIfYouCan(String command) throws GameException {		
 		String[] commands = command.split(" ");
-		if (!commands[0].equals(NAME)) return false;
+		if (!commands[0].startsWith(NAME)) return false;
 		wasValid = true;
 		consume();
 		if(!wasValid) return true;
@@ -29,13 +29,11 @@ public class TorpedoPower extends Power {
 		
 		if (path == null || path.getPathLength() > 4) {
 			wasValid = false;
-			gameManager.addTooltip(player, "Tried to fire out of range");
+			gameManager.addToGameSummary("Tried to fire out of range");
 			return true;
 		}
 		
-		gameManager.addTooltip(player, "Torpedo");
-		
-		animateExplosion(target);
+		//gameManager.addTooltip(player, "Torpedo");
 		
 		List<Player> players = gameManager.getPlayers();
 		
@@ -53,20 +51,18 @@ public class TorpedoPower extends Power {
 		}
 		
 		setSummary(String.format("%s %d %d", NAME, target.x, target.y));
-		
+		toActionWindow = getSummary();
+		origin = new Point(player.getPosition().x, player.getPosition().y);
 		return true;
 	}
-	
-	private void animateExplosion(Point target) {
-		Line line = gridManager.createLine(player.getPosition(), target, player.getColorToken());
-		entityManager.commitEntityState(0.2, line);
-		line.setAlpha(0);
-		entityManager.commitEntityState(1, line);
-		gridManager.createTargetExplosion("explosion", 5, target, player);
-	}
-	
-	private int dist(Point p1, Point p2) {
-		return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
+
+	private Point origin;
+
+	@Override
+	public void doGraphics() throws GameException {
+		String[] commands = toActionWindow.split(" ");
+		Point target = new Point(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]));
+		gridManager.torpedo(target, player, origin);
 	}
 
 	@Override

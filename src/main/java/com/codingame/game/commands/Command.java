@@ -19,6 +19,7 @@ public abstract class Command {
 	private String result = null;
 	private String summary = null;
 	protected boolean wasValid = true;
+	public String toActionWindow;
 
 	public void init(Player player, Player opponent, MultiplayerGameManager<Player> gameManager, GraphicEntityModule entityManager,
 			GridManager gridManager) {
@@ -43,6 +44,11 @@ public abstract class Command {
 		return summary;
 	}
 
+
+	public void doGraphics() throws GameException{
+
+	}
+
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
@@ -65,5 +71,13 @@ public abstract class Command {
 
 	public boolean isValidCommand(){
 		return wasValid;
+	}
+
+	public Referee.Direction getDirection(String dir) throws GameException{
+		try{
+			return Referee.Direction.valueOf(dir);
+		}catch (Exception e){
+			throw new GameException("Invalid direction: " + dir + ". Legal values are: N, S, E or W.");
+		}
 	}
 }

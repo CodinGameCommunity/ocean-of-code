@@ -31,12 +31,12 @@ public class MoveCommand extends Command {
 	@Override
 	public boolean executeIfYouCan(String command) throws GameException {
 		
-		if (!command.startsWith(NAME))
+		if (!command.startsWith(NAME+" "))
 			return false;
 		
 		String[] commands = command.split(" ");
 
-		Direction direction = Direction.valueOf(commands[1]);
+		Direction direction = getDirection(commands[1]);
 		
 		Point result = new Point(player.getPosition().x, player.getPosition().y);
 
@@ -83,14 +83,23 @@ public class MoveCommand extends Command {
 			}
 			else{
 				((Power)c).chargePower();
+				toActionWindow = NAME + " " + direction + " " + commands[2];
 			}
+		}
+		else
+		{
+			toActionWindow = NAME + " " + direction + " ";
 		}
 		
 		setSummary(String.format("MOVE %s", direction.toString()));
-		
 		return true;
 	}
-	
+
+	@Override
+	public void doGraphics() throws GameException {
+		gridManager.updatePlayerPosition(player, false);
+	}
+
 	public void fillPath(Point p) throws GameException {
 		grid[p.x][p.y] = gridManager.fillCell(p, player.getColorToken(), player);
 	}

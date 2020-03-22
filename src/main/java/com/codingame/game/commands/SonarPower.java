@@ -23,7 +23,7 @@ public class SonarPower extends Power {
 
 	@Override
 	public boolean executeIfYouCan(String command) throws GameException {
-		if (!command.startsWith(NAME))
+		if (!command.startsWith(NAME+" "))
 			return false;
 
 		wasValid = true;
@@ -35,18 +35,23 @@ public class SonarPower extends Power {
 			int sector = Integer.parseInt(commands[1]);
 			if(sector < 1 || sector > 9){
 				wasValid = false;
-
 			}
 
 			setResult(sector == opponent.getSector() ? "Y" : "N");
 			setSummary(String.format("SONAR %d", sector));
-			gameManager.addTooltip(player, "Sonar " + sector);
-			gridManager.addSonar(sector);
+			//gameManager.addTooltip(player, "Sonar " + sector);
 
 		} catch (NumberFormatException e) {
 			throw new GameException("Invalid Sonar command: sector not found");
 		}
-
+		toActionWindow = getSummary();
 		return true;
+	}
+
+	@Override
+	public void doGraphics() throws GameException {
+		String[] commands = toActionWindow.split(" ");
+		int sector = Integer.parseInt(commands[1]);
+		gridManager.addSonar(sector, player);
 	}
 }

@@ -34,11 +34,16 @@ public class Referee extends AbstractReferee {
 	public Random getRandom() {
 		return random;
 	}
-	
+
+	private int maxTurns = 599;
+	private int remainingTurns = 0;
+	private int realTurn = -1;
+
 
 	@Override
 	public void init() {
 		gameManager.setTurnMaxTime(50);
+		gameManager.setMaxTurns(599);
 		
 		System.err.println(Long.parseLong(gameManager.getGameParameters().get("seed").toString()));
 		long seed = gameManager.getSeed();
@@ -78,10 +83,14 @@ public class Referee extends AbstractReferee {
 		gameManager.endGame();
 	}
 
+	private String getLifeString(int amount){
+		if(Math.abs(amount)==1) return " life";
+		return " lives";
+	}
 	@Override
 	public void onEnd() {
 		int[] scores = gameManager.getPlayers().stream().mapToInt(p -> p.getScore()).toArray();
-		String[] texts = new String[]{ gameManager.getPlayer(0).getScore()+"", gameManager.getPlayer(1).getScore()+""};
+		String[] texts = new String[]{ gameManager.getPlayer(0).getScore()+getLifeString(gameManager.getPlayer(0).getScore()), gameManager.getPlayer(1).getScore()+getLifeString(gameManager.getPlayer(1).getScore())};
 		endScreenModule.setScores(scores, texts);
 		endScreenModule.setTitleRankingsSprite("logo.png");
 	}
@@ -98,7 +107,15 @@ public class Referee extends AbstractReferee {
 		}
 	}
 
-	private void classicTurn(int turn) {
+	private void classicTurn(int turn) throws GameException {
+		if(remainingTurns > 0){
+			Player p = gameManager.getPlayer(realTurn%2);
+
+			p.doGraphics(p.lastCommands.size() - remainingTurns--);
+			return;
+		}
+
+		turn = ++realTurn;
 		Player player = gameManager.getPlayer(turn % 2);
 		Player opponent = gameManager.getPlayer((turn + 1) % 2);
 
@@ -114,6 +131,9 @@ public class Referee extends AbstractReferee {
 			output = player.getOutputs().get(0);
 
 			player.executeCommand(output);
+			remainingTurns = player.lastCommands.size()-1;
+			maxTurns += remainingTurns;
+			gameManager.setMaxTurns(maxTurns);
 
 		} catch (TimeoutException e) {
 			disablePlayer(player, "Timeout!");

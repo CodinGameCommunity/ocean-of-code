@@ -24,6 +24,7 @@ public abstract class Power extends Command {
 
 		entityManager
 				.createText(getName())
+				.setFontFamily("Arial")
 				.setX(player.getIndex() == 1 ? 30 : 1890)
 				.setY(y-50)
 				.setAnchorX(player.getIndex() == 1? 0 : 1)
@@ -59,11 +60,12 @@ public abstract class Power extends Command {
 		charge++;
 	}
 
+
 	public void consume() throws GameException {
 		wasValid = true;
 		if (charge != getMaxValue()) {
 			wasValid = false;
-			gameManager.addTooltip(player, "Not enough charged of " + getName());
+			gameManager.addToGameSummary("Not enough charges of " + getName());
 			return;
 		}
 		charge = 0;

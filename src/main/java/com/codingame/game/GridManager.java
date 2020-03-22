@@ -23,6 +23,7 @@ public class GridManager {
 	private Map<Mine, SpriteAnimation> mines = new HashMap<>();
 	private boolean[][] grid = new boolean[GRID_SIZE][GRID_SIZE];
 	private GameManager gameManager;
+	private Text actionText;
 
 	public GridManager() {
 
@@ -43,7 +44,7 @@ public class GridManager {
 		}
 
 		// create random islands
-		for (int i = 0; i < rand.nextInt(26)+5; i++) {
+		for (int i = 0; i < rand.nextInt(26) + 5; i++) {
 
 			int x = rand.nextInt(15);
 			int y = rand.nextInt(15);
@@ -84,7 +85,7 @@ public class GridManager {
 					.setBaseHeight(60)
 					.setX(convertX(entry.getKey().x))
 					.setY(convertY(entry.getKey().y));
-			tooltipModule.setTooltipText(sprite, "Island\nx = " + (int)entry.getKey().getX() + "\ny = " + (int)entry.getKey().getY());
+			tooltipModule.setTooltipText(sprite, "Island\nx = " + (int) entry.getKey().getX() + "\ny = " + (int) entry.getKey().getY());
 		}
 
 		// set tooltips for water tiles
@@ -96,6 +97,42 @@ public class GridManager {
 				}
 			}
 		}
+
+		actionText = entityManager.createText("")
+				.setX(1920 / 2)
+				.setAnchor(0.5)
+				.setStrokeColor(0x000000)
+				.setStrokeThickness(2)
+				.setY(1040)
+				.setFontFamily("Arial")
+				.setFontSize(40);
+	}
+
+	public void surface(Player player){
+		Circle circle = createCircle(player.getPosition(), player.getColorToken());
+		circle.setFillAlpha(0);
+
+		entityManager.commitEntityState(0, circle);
+		circle.setFillAlpha(0.5);
+		entityManager.commitEntityState(0.2, circle);
+
+		circle.setScale(10);
+		circle.setAlpha(0);
+		entityManager.commitEntityState(1, circle);
+
+		Group submarine = getPlayers().get(player);
+		submarine.setScale(2);
+		entityManager.commitEntityState(0.5, submarine);
+		submarine.setScale(1);
+		entityManager.commitEntityState(1, submarine);
+	}
+
+	public void torpedo(Point target, Player player, Point origin){
+		Line line = createLine(origin, target, player.getColorToken());
+		entityManager.commitEntityState(0.2, line);
+		line.setAlpha(0);
+		entityManager.commitEntityState(1, line);
+		createTargetExplosion("explosion", 5, target, player);
 	}
 
 	private Map<Point, String> checkError(boolean[][] grid) {
@@ -171,6 +208,13 @@ public class GridManager {
 		return (int) (GRID_ORIGIN_Y + unit * CELL_WIDTH);
 	}
 
+
+	public void updateAction(Player player, String actions){
+		actionText.setText(actions)
+				.setFillColor(player.getColorToken());
+
+		entityManager.commitEntityState(0, actionText);
+	}
 	public Entity fillCell(Point p, int color, Player player) {
 		//int x = convertX(p.x);
 		//int y = convertY(p.y);
@@ -194,7 +238,7 @@ public class GridManager {
 	}
 
 	private Random rnd = new Random();
-	public void addMine(Mine mine){
+	public void addMine(Mine mine, Point origin){
 		int x = CELL_WIDTH / 2 - 2 + mine.player.getIndex()*4;
 		int y = CELL_WIDTH / 2 - 2 + mine.player.getIndex()*4;
 		SpriteAnimation circle = entityManager.createSpriteAnimation()
@@ -202,8 +246,8 @@ public class GridManager {
 				.setZIndex(5)
 				.setAnchor(0.5)
 				.setTint(mine.player.getColorToken())
-				.setX(convertX(mine.player.getPosition().x) + CELL_WIDTH / 2 )
-				.setY(convertY(mine.player.getPosition().y) + CELL_WIDTH / 2)
+				.setX(convertX(origin.x) + CELL_WIDTH / 2 )
+				.setY(convertY(origin.y) + CELL_WIDTH / 2)
 				.setDuration(1000)
 				.setLoop(true);
 
@@ -216,7 +260,7 @@ public class GridManager {
 		circle.setPlaying(true);
 	}
 
-	public void addSonar(int grid){
+	public void addSonar(int grid, Player player){
 		grid--;
 		int x = grid % 3 * 5 + 2;
 		int y = grid / 3 * 5 + 2;
@@ -230,7 +274,7 @@ public class GridManager {
 				.setFillAlpha(0)
 				.setLineAlpha(1)
 				.setRadius(CELL_WIDTH*3)
-				.setLineColor(0x33bb33)
+				.setLineColor(player.getColorToken())
 				.setLineWidth(6));
 
 		Circle c2;
@@ -238,7 +282,7 @@ public class GridManager {
 				.setFillAlpha(0)
 				.setLineAlpha(1)
 				.setRadius(CELL_WIDTH*2)
-				.setLineColor(0x33bb33)
+				.setLineColor(player.getColorToken())
 				.setLineWidth(6));
 
 		c2.setScale(0);
@@ -271,6 +315,10 @@ public class GridManager {
 				continue;
 			}
 
+			if(!entry.getKey().isActive){
+				continue;
+			}
+
 			return true;
 		}
 
@@ -295,7 +343,7 @@ public class GridManager {
 	}
 
 	private void blowMine(Mine mine){
-		mines.get(mine).setAlpha(0).setScale(1.5, Curve.ELASTIC);
+		mines.get(mine).setAlpha(0);
 		tooltipModule.setTooltipText(mines.get(mine), "");
 		entityManager.commitEntityState(0.4, mines.get(mine));
 		mines.remove(mine);
@@ -370,7 +418,7 @@ public class GridManager {
 		tooltipModule.setTooltipText(sprite, "Player " + player.getIndex());
 	}
 
-	public void updatePlayerPosition(Player p) {
+	public void updatePlayerPosition(Player p, boolean silenced) {
 		Point position = p.getPosition();
 
 		Group group = players.get(p);
@@ -394,13 +442,10 @@ public class GridManager {
 			entityManager.commitEntityState(0, image);
 		}
 
-		if(p.isSilenced && image.getAlpha() > 0.5){
-			image.setAlpha(0.7, Curve.LINEAR).setScale(0.9, Curve.LINEAR);
+		if(silenced){
+			image.setAlpha(0.7, Curve.LINEAR);
 			entityManager.commitEntityState(0.5, image);
-		}
-
-		if(!p.isSilenced && image.getAlpha() < 1){
-			image.setAlpha(1, Curve.LINEAR).setScale(1.5, Curve.LINEAR);
+			image.setAlpha(1, Curve.LINEAR);
 		}
 
 		group.setX(newX).setY(newY);

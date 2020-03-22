@@ -32,7 +32,7 @@ public class Player extends AbstractMultiplayerPlayer {
 	private Map<String, Command> commands = new HashMap<String, Command>();
 	private int life = 6;
 	private List<Circle> graphicLife = new ArrayList<Circle>();
-	private List<Command> lastCommands = new ArrayList<Command>();
+	public List<Command> lastCommands = new ArrayList<Command>();
 
 	public String message;
 
@@ -55,7 +55,6 @@ public class Player extends AbstractMultiplayerPlayer {
 
 		return summaries.size() > 0 ? String.join("|", summaries) : "NA";
 	}
-
 
 	public String getLastResult() {
 
@@ -84,12 +83,17 @@ public class Player extends AbstractMultiplayerPlayer {
 
 	private void createMessageText(){
 		messageText = entityManager.createText("")
+				.setFontFamily("Arial")
 				.setFillColor(0xffffff)
 				.setX(getIndex()==0?30:1890)
 				.setMaxWidth(400)
 				.setY(370)
 				.setFontSize(30)
 				.setZIndex(100);
+
+		if (getIndex() == 1) {
+			messageText.setAnchorX(1);
+		}
 	}
 
 	private void createPlayerFrame(){
@@ -121,12 +125,13 @@ public class Player extends AbstractMultiplayerPlayer {
 
 	private void createNickname() {
 		Text nickname = entityManager.createText(getNicknameToken())
+				.setFontFamily("Arial")
 				.setX(1080/4)
 				.setY(270)
 				.setZIndex(20)
 				.setAnchorX(0.5)
 				.setMaxWidth(400)
-				.setFontSize(70)
+				.setFontSize(60)
 				.setFillColor(getColorToken());
 
 		if (getIndex() == 1) {
@@ -218,6 +223,7 @@ public class Player extends AbstractMultiplayerPlayer {
 		if (life > 0) {
 			life--;
 			graphicLife.get(life).setAlpha(0);
+			gameManager.addTooltip(this, getNicknameToken() + " lost a life");
 		}
 
 		if (life <= 0) {
@@ -234,7 +240,6 @@ public class Player extends AbstractMultiplayerPlayer {
 	public void setPosition(Point p) {
 		this.position = p;
 
-		gridManager.updatePlayerPosition(this);
 	}
 
 	public int getSector() {
@@ -266,7 +271,7 @@ public class Player extends AbstractMultiplayerPlayer {
 		gridManager.beforeRound();
 		message = "";
 		String[] commandStr = command.split("\\|");
-
+		ArrayList<String> cmds = new ArrayList<>();
 		lastCommands = new ArrayList<Command>();
 		for (int i = 0; i < commandStr.length; i++) {
 
@@ -282,15 +287,16 @@ public class Player extends AbstractMultiplayerPlayer {
 
 					if(c.isValidCommand()){
 						lastCommands.add(c);
+						cmds.add(c.toActionWindow);
 					}
 					done = true;
 					break;
 				}
 			}
 
-			if(!done){
+			if(!done && !cStr.trim().equals(""))
+			{
 				gameManager.addToGameSummary("Command not found: " + cStr);
-				gameManager.addTooltip(this, "Command not found: " + cStr);
 			}
 		}
 
@@ -300,9 +306,18 @@ public class Player extends AbstractMultiplayerPlayer {
 			Command surface = getCommand(SurfaceCommand.NAME);
 			surface.executeIfYouCan(SurfaceCommand.NAME);
 			lastCommands.add(surface);
+			cmds.add(surface.toActionWindow);
 		}
+
+		lastCommands.get(0).doGraphics();
+
+		gridManager.updateAction(this, String.join(" -> ", cmds));
 
 		messageText.setText(message);
 		entityManager.commitEntityState(0, messageText);
+	}
+
+	public void doGraphics(int id) throws GameException{
+		lastCommands.get(id).doGraphics();
 	}
 }

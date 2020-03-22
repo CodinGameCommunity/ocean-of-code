@@ -27,34 +27,41 @@ public class MinePower extends Power {
 
 	@Override
 	public boolean executeIfYouCan(String command) throws GameException {
-		if (!command.startsWith(NAME)) return false;
+		if (!command.startsWith(NAME+" ")) return false;
 		wasValid = true;
 		consume();
 		if(!wasValid) return true;
 
 		String[] commands = command.split(" ");
 		setSummary("MINE");
-		Referee.Direction direction = Referee.Direction.valueOf(commands[1]);
+		Referee.Direction direction = getDirection(commands[1]);
 		Point target = new Point(player.getPosition().x + getDx(direction), player.getPosition().y+getDy((direction)));
 
 		if(!gridManager.isEmpty(target)){
 			wasValid = false;
 			gameManager.addToGameSummary("Mine target outside map or on obstacle");
-			gameManager.addTooltip(player, "Can't place mine here");
+		//	gameManager.addTooltip(player, "Can't place mine here");
 			return true;
 		}
 
 		if(gridManager.hasMine(target, player)){
 			wasValid = false;
 			gameManager.addToGameSummary("Double mine not allowed");
-			gameManager.addTooltip(player, "Can't place double mines");
+		//	gameManager.addTooltip(player, "Can't place double mines");
 			return true;
 		}
 
-		Mine mine = new Mine(target, player);
-		gridManager.addMine(mine);
-		gameManager.addTooltip(player, "Mine");
+		this.mine = new Mine(target, player);
+		toActionWindow = "MINE " + target.x + " " + target.y;
+		origin = new Point(player.getPosition().x, player.getPosition().y);
+		//gameManager.addTooltip(player, "Mine");
 		return true;
 	}
+	private Mine mine;
+	private Point origin;
 
+	@Override
+	public void doGraphics() throws GameException {
+		gridManager.addMine(mine, origin);
+	}
 }

@@ -10,27 +10,37 @@ public class TriggerCommand extends Command {
 
     @Override
     public boolean executeIfYouCan(String command) throws GameException {
-        if (!command.startsWith(NAME))
+        if (!command.startsWith(NAME+" "))
             return false;
 
         wasValid = true;
 
         String[] commands = command.split(" ");
-        Point target = new Point(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]));
-        setSummary(String.format("%s %d %d", NAME, target.x, target.y));
-        if(!gridManager.hasMine(target, player)){
+        try{
+            Point target = new Point(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]));
+            setSummary(String.format("%s %d %d", NAME, target.x, target.y));
+            if(!gridManager.hasMine(target, player)){
+                wasValid = false;
+                gameManager.addToGameSummary("No mine to trigger on " + target.x + " " + target.y);
+                return true;
+            }
+
+            toActionWindow = getSummary();
+        }catch (Exception e){
             wasValid = false;
-            gameManager.addTooltip(player, "No mine to trigger on " + target.x + " " + target.y);
+
             return true;
         }
 
-        if(!gridManager.explodeMine(target, player)){
-            wasValid = false;
-            gameManager.addTooltip(player, "No mine to trigger on " + target.x + " " + target.y);
-            return true;
-        }
-
-        gameManager.addTooltip(player, "Trigger");
+        //gameManager.addTooltip(player, "Trigger");
         return true;
+    }
+
+    @Override
+    public void doGraphics() throws GameException {
+        String[] commands = toActionWindow.split(" ");
+        Point target = new Point(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]));
+
+        gridManager.explodeMine(target, player);
     }
 }

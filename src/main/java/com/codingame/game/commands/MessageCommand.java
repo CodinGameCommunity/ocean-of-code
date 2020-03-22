@@ -8,7 +8,7 @@ public class MessageCommand extends Command {
 
     @Override
     public boolean executeIfYouCan(String command) throws GameException {
-        if (!command.startsWith(NAME))
+        if (!command.startsWith(NAME+" "))
             return false;
 
         if(command.length() <= 4){

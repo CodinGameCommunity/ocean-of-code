@@ -40,7 +40,7 @@ public class SilencePower extends Power {
 
 	@Override
 	public boolean executeIfYouCan(String command) throws GameException {
-		if (!command.startsWith(NAME))
+		if (!command.startsWith(NAME+" "))
 			return false;
 		
 		consume();
@@ -59,8 +59,7 @@ public class SilencePower extends Power {
 		}
 		
 		setSummary("SILENCE");
-		gameManager.addTooltip(player, "Silence");
-		player.isSilenced = true;
+		//gameManager.addTooltip(player, "Silence");
 		for (int i = 1; i <= distance; i++) {
 			Point result = new Point(player.getPosition().x, player.getPosition().y);
 			
@@ -96,13 +95,17 @@ public class SilencePower extends Power {
 			}
 			
 			moveCommand.fillPath(result);
-			if(i == distance){
-				player.isSilenced = false;
-			}
 			player.setPosition(result);
 
 			if(player.getLife() <= 0) return true; // death by mines
 		}
+		player.setPosition(player.getPosition());
+		toActionWindow = NAME + " " + direction + " " + distance;
 		return true;
+	}
+
+	@Override
+	public void doGraphics() throws GameException {
+		gridManager.updatePlayerPosition(player, true);
 	}
 }
