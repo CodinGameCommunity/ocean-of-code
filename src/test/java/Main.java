@@ -8,9 +8,9 @@ public class Main {
         gameRunner.setLeagueLevel(3);
         gameRunner.setSeed(1337L);
         // add player 1
-        gameRunner.addAgent(Player.class);
+        gameRunner.addAgent(DummyPlayer.class);
         // add player 2
-        gameRunner.addAgent(Player.class);
+        gameRunner.addAgent(DummyPlayer.class);
         //gameRunner.addAgent(Player2.class);
 
         //gameRunner.addAgent("python3 bot.py");
