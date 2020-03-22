@@ -54,7 +54,7 @@ public class BFS {
 		
 		Queue<Node> q = new LinkedList<Node>();
 		maze = Utils.copyGrid(maze);
-
+		maze[src.x][src.y] = true;
 		q.add(new Node(src.x, src.y, null));
 
 		while (!q.isEmpty()) {
@@ -65,25 +65,25 @@ public class BFS {
 			}
 
 			if (isFree(maze, p.x + 1, p.y)) {
-				maze[p.x][p.y] = true;
+				maze[p.x + 1][p.y] = true;
 				Node nextP = new Node(p.x + 1, p.y, p);
 				q.add(nextP);
 			}
 
 			if (isFree(maze, p.x - 1, p.y)) {
-				maze[p.x][p.y] = true;
+				maze[p.x - 1][p.y] = true;
 				Node nextP = new Node(p.x - 1, p.y, p);
 				q.add(nextP);
 			}
 
 			if (isFree(maze, p.x, p.y + 1)) {
-				maze[p.x][p.y] = true;
+				maze[p.x][p.y + 1] = true;
 				Node nextP = new Node(p.x, p.y + 1, p);
 				q.add(nextP);
 			}
 
 			if (isFree(maze, p.x, p.y - 1)) {
-				maze[p.x][p.y] = true;
+				maze[p.x][p.y - 1] = true;
 				Node nextP = new Node(p.x, p.y - 1, p);
 				q.add(nextP);
 			}
