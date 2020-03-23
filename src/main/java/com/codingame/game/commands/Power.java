@@ -8,6 +8,7 @@ import com.codingame.game.GridManager;
 import com.codingame.game.Player;
 import com.codingame.gameengine.core.MultiplayerGameManager;
 import com.codingame.gameengine.module.entities.Circle;
+import com.codingame.gameengine.module.entities.Curve;
 import com.codingame.gameengine.module.entities.GraphicEntityModule;
 import com.codingame.gameengine.module.entities.Text;
 
@@ -42,11 +43,18 @@ public abstract class Power extends Command {
 				x = 1920 - (50 + 55 * i);
 			}
 
-			entityManager.createCircle().setX(x).setY(y)
-					.setFillColor(0x555555).setRadius(22).setAlpha(1).setFillAlpha(1).setLineColor(0x000000).setLineWidth(3);
+			//entityManager.createCircle().setX(x).setY(y)
+			//		.setFillColor(0x555555).setRadius(22).setAlpha(1).setFillAlpha(1).setLineColor(0x000000).setLineWidth(3);
 
-			graphicCharges.add(entityManager.createCircle().setX(x).setY(y)
-					.setFillColor(player.getColorToken()).setRadius(20).setAlpha(0).setLineColor(0x000000));
+			graphicCharges.add(entityManager.createCircle()
+					.setX(x)
+					.setY(y)
+					.setFillColor(0x555555)
+					.setAlpha(0.8)
+					.setRadius(20)
+					.setScale(0.5)
+					.setLineWidth(5)
+					.setLineColor(0x000000));
 		}
 	}
 
@@ -55,7 +63,7 @@ public abstract class Power extends Command {
 		if (charge >= getMaxValue())
 			return;
 
-		graphicCharges.get(charge).setAlpha(0.8);
+		graphicCharges.get(charge).setScale(1.0, Curve.ELASTIC).setFillColor(player.getColorToken());
 
 		charge++;
 	}
@@ -71,7 +79,7 @@ public abstract class Power extends Command {
 		charge = 0;
 
 		for (int i = 0; i < graphicCharges.size(); i++) {
-			graphicCharges.get(i).setAlpha(0);
+			graphicCharges.get(i).setScale(0.5, Curve.ELASTIC).setFillColor(0x555555);
 		}
 	}
 

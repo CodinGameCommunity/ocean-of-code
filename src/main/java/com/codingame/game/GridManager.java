@@ -325,7 +325,7 @@ public class GridManager {
 		return false;
 	}
 
-	public boolean explodeMine(Point point, Player player) throws GameException{
+	public boolean explodeMine(Point point, Player player, boolean isViewer) throws GameException{
 		for(Map.Entry<Mine, SpriteAnimation> entry : mines.entrySet()){
 			if(!entry.getKey().point.equals(point) || !entry.getKey().player.equals(player)){
 				continue;
@@ -335,27 +335,35 @@ public class GridManager {
 				continue;
 			}
 
-			blowMine(entry.getKey());
+			blowMine(entry.getKey(), isViewer);
 			return true;
 		}
 
 		return false;
 	}
 
-	private void blowMine(Mine mine){
-		mines.get(mine).setAlpha(0);
-		tooltipModule.setTooltipText(mines.get(mine), "");
-		entityManager.commitEntityState(0.4, mines.get(mine));
-		mines.remove(mine);
-		createTargetExplosion("explosion", 5, mine.point, mine.player);
-		for(Map.Entry<Player, Sprite> pentry : playerSprites.entrySet()){
-			Point point = pentry.getKey().getPosition();
-			if (Math.abs(point.x - mine.point.x) <= 1 && Math.abs(point.y - mine.point.y) <= 1) {
-				pentry.getKey().reduceLife();
-			}
 
-			if (point.equals(mine.point)) {
-				pentry.getKey().reduceLife();
+
+	private void blowMine(Mine mine, boolean isViewer){
+		if(isViewer){
+			mines.get(mine).setAlpha(0);
+			tooltipModule.setTooltipText(mines.get(mine), "");
+			entityManager.commitEntityState(0.4, mines.get(mine));
+			mines.remove(mine);
+			createTargetExplosion("explosion", 5, mine.point, mine.player);
+		}
+		else if(!mine.isBlown)
+		{
+			mine.isBlown = true;
+			for(Map.Entry<Player, Sprite> pentry : playerSprites.entrySet()){
+				Point point = pentry.getKey().getPosition();
+				if (Math.abs(point.x - mine.point.x) <= 1 && Math.abs(point.y - mine.point.y) <= 1) {
+					pentry.getKey().reduceLife();
+				}
+
+				if (point.equals(mine.point)) {
+					pentry.getKey().reduceLife();
+				}
 			}
 		}
 	}
@@ -418,8 +426,7 @@ public class GridManager {
 		tooltipModule.setTooltipText(sprite, "Player " + player.getIndex());
 	}
 
-	public void updatePlayerPosition(Player p, boolean silenced) {
-		Point position = p.getPosition();
+	public void updatePlayerPosition(Player p, boolean silenced, Point position) {
 
 		Group group = players.get(p);
 		Sprite image = playerSprites.get(p);
@@ -445,7 +452,7 @@ public class GridManager {
 		if(silenced){
 			image.setAlpha(0.7, Curve.LINEAR);
 			entityManager.commitEntityState(0.5, image);
-			image.setAlpha(1, Curve.LINEAR);
+			image.setAlpha(1.0, Curve.LINEAR);
 		}
 
 		group.setX(newX).setY(newY);

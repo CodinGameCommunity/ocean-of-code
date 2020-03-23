@@ -74,7 +74,7 @@
 
 
             <h2> Each turn</h2>
-            <p>This is a turn based game which means that each player plays a turn one after one. The player with the id 0 begins.
+            <p>This is a turn based game which means that each player plays a turn one after the other. The player with the id 0 begins.
                 During your turn, thankfully to your radio frequency analysis, you will receive an indication of what your opponent has done.
                 For example, you can receive that it moved to the north. It's up to you to use this valuable information to detect where it is. Then, you must perform at least one action.
             </p>

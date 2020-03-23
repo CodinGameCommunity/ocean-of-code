@@ -33,6 +33,8 @@ public class TriggerCommand extends Command {
         }
 
         //gameManager.addTooltip(player, "Trigger");
+        Point target = new Point(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]));
+        gridManager.explodeMine(target, player, false);
         return true;
     }
 
@@ -41,6 +43,6 @@ public class TriggerCommand extends Command {
         String[] commands = toActionWindow.split(" ");
         Point target = new Point(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]));
 
-        gridManager.explodeMine(target, player);
+        gridManager.explodeMine(target, player, true);
     }
 }

@@ -150,11 +150,12 @@ public class Player extends AbstractMultiplayerPlayer {
 				x = 1920 - x;
 			}
 
-			entityManager.createCircle().setX(x).setY(y)
-					.setFillColor(0x555555).setRadius(15).setAlpha(1).setFillAlpha(1).setLineColor(0x000000).setLineWidth(3);
+			//entityManager.createCircle().setX(x).setY(y)
+			//		.setFillColor(0x555555).setRadius(15).setAlpha(1).setFillAlpha(1).setLineColor(0x000000).setLineWidth(3);
 
 			graphicLife.add(entityManager.createCircle().setX(x).setY(y).setFillColor(getColorToken()).setRadius(12)
-					.setAlpha(0.8).setLineColor(0x000000));
+					.setAlpha(0.8).setLineColor(0x000000)
+					.setLineWidth(4));
 		}
 	}
 
@@ -222,7 +223,7 @@ public class Player extends AbstractMultiplayerPlayer {
 
 		if (life > 0) {
 			life--;
-			graphicLife.get(life).setAlpha(0);
+			graphicLife.get(life).setFillColor(0x555555).setScale(0.5);
 			gameManager.addTooltip(this, getNicknameToken() + " lost a life");
 		}
 

@@ -81,7 +81,8 @@ public class MoveCommand extends Command {
 			if (c == null || !(c instanceof Power)) {
 				gameManager.addTooltip(player, String.format("Invalid power to charge '%s'", commands[2]));
 			}
-			else{
+			else
+			{
 				((Power)c).chargePower();
 				toActionWindow = NAME + " " + direction + " " + commands[2];
 			}
@@ -92,12 +93,15 @@ public class MoveCommand extends Command {
 		}
 		
 		setSummary(String.format("MOVE %s", direction.toString()));
+		position = new Point(player.getPosition());
 		return true;
 	}
 
+	private Point position;
+
 	@Override
 	public void doGraphics() throws GameException {
-		gridManager.updatePlayerPosition(player, false);
+		gridManager.updatePlayerPosition(player, false, position);
 	}
 
 	public void fillPath(Point p) throws GameException {

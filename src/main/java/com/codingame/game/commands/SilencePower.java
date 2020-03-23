@@ -99,13 +99,17 @@ public class SilencePower extends Power {
 
 			if(player.getLife() <= 0) return true; // death by mines
 		}
+
 		player.setPosition(player.getPosition());
 		toActionWindow = NAME + " " + direction + " " + distance;
+		position = new Point(player.getPosition());
 		return true;
 	}
 
+	private Point position;
+
 	@Override
 	public void doGraphics() throws GameException {
-		gridManager.updatePlayerPosition(player, true);
+		gridManager.updatePlayerPosition(player, true, position);
 	}
 }

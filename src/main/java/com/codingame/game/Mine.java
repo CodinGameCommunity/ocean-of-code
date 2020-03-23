@@ -5,7 +5,7 @@ import java.awt.*;
 public class Mine {
     public final Point point;
     public final Player player;
-    public boolean isActive;
+    public boolean isActive, isBlown;
 
     public Mine(Point point, Player player) {
         this.point = point;
