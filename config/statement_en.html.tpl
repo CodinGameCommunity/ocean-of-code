@@ -111,7 +111,7 @@
             A torpedo requires <const>3</const> charge actions to be ready.
             When fully charged, the torpedo can be fired at an arbitrary water position within a range of <const>4</const> cells.
             This allows the torpedo's path to contain corners and go around islands, but not through them.
-            The damage of the explosion is <const>2</const> on the cell itself and <const>1</const> on all neighbors (including diagonal ones).
+            The damage of the explosion is <const>2</const> on the cell itself and <const>1</const> on all neighbors (including diagonal ones). You can also damage yourself with a torpedo.
             The following image illustrates the range of a torpedo: <br>
             <img src="https://raw.githubusercontent.com/CodinGameCommunity/ocean-of-code/master/torpedoRange.png">
 
@@ -155,7 +155,7 @@
             <br><br><p><strong>Trigger</strong></p>
             Triggering a mine will cause an explosion. You can only trigger your own mines.
             Like for a torpedo, the explosion has a damage of <const>2</const> on the location of the mine and <const>1</const> damage to nearby cells (including diagonally).
-            You can't trigger multiple mines in the same turn. You can't place and trigger a mine in the same turn.
+            You can't trigger multiple mines in the same turn. You can't place and trigger a mine in the same turn. You can also damage yourself with a mine.
             </div>
             <!-- END -->
             <!-- BEGIN level4 -->
@@ -168,7 +168,7 @@
             <br><br><p><strong>Trigger</strong></p>
             Triggering a mine will cause an explosion. You can only trigger your own mines.
             Like for a torpedo, the explosion has a damage of <const>2</const> on the location of the mine and <const>1</const> damage to nearby cells (including diagonally).
-            You can't trigger multiple mines in the same turn. You can't place and trigger a mine in the same turn.
+            You can't trigger multiple mines in the same turn. You can't place and trigger a mine in the same turn. You can also damage yourself with a mine.
             <!-- END -->
 
             <br>
