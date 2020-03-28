@@ -90,17 +90,17 @@
             </p>
             <br>
             <p><strong>Move</strong></p>
-            <p>A move action:
-              <ul>
-                <li>moves your submarine by <const>1</const> cell in a chosen direction (north, east, south, west).</li>
-                <li>charges a power of your choice.</li>
-              </ul>
+            <p>A move action has two effects:
+              <ol>
+                <li>It moves your submarine by <const>1</const> cell in a chosen direction (north, east, south, west).</li>
+                <li>It charges a special power of your choice, <i>i.e.</i> increases its energy level by <const>1</const>.</li>
+              </ol>
             </p>
             <p>When you move, you must respect the following rules:
             <ul><li>You cannot move through islands.</li>
                 <li>You cannot move to a cell you have visited before.</li>
             </ul>
-            <p>You can decide what special power to charge. Different devices require a different amount of charges to be ready. The power levels are separate per device, not shared.<br>
+            <p>You can decide what special power to charge.  The special powers are performed by different devices, who require a different amount of energy to be ready. The energy levels are separate per device, not shared.<br>
             <!-- BEGIN level1 -->
             In this league you can only charge the torpedo.
             <!-- END -->
@@ -116,7 +116,7 @@
             But surfacing has major impacts: your opponent will know in which sector you are surfacing, and you will lose <const>1</const> hit point.
             <br>
             <br><p><strong>Torpedo</strong></p>
-            The torpedo action requires a charge level of <const>3</const>.
+            The torpedo action requires an energy level of <const>3</const>.
             When fully charged, the torpedo can be fired at an arbitrary water position within a water range of <const>4</const> cells.
             This allows the torpedo's path to contain corners and go around islands, but not through them.
             The following image illustrates the range of a torpedo: <br>
@@ -128,26 +128,26 @@
         background-color: rgba(124, 197, 118,.1);
         padding: 2px;">
             <p><strong>Sonar</strong></p>
-            <p>The sonar action requires a charge level of <const>4</const>.
+            <p>The sonar action requires an energy level of <const>4</const>.
               When fully charged, it allows you to check whether the opponent's submarine is in a chosen sector.</p>
             <p>The response will be provided to you in your next turn's input.
             Careful! Said response is in respect to the time you issued the order, so your opponent will have issued and performed orders of its own by the time you receive it.</p>
 
             <br><p><strong>Silence</strong></p>
-            The silence action requires a charge level of <const>6</const>.
+            The silence action requires an energy level of <const>6</const>.
             When fully charged, it allows you to move <const>0</const> to <const>4</const> cells in a chosen direction.  Same as with the Move action, you may not visit an island or an already visited cell, be it as a final action destination or a waypoint.<br>
             Your opponent will not know in which direction or how far you've moved.  It <i>will</i> know that you used the silence action, though.
             </div>
            <!-- END -->
            <!-- BEGIN level3 level4 -->
             <p><strong>Sonar</strong></p>
-            <p>The sonar action requires a charge level of <const>4</const>.
+            <p>The sonar action requires an energy level of <const>4</const>.
               When fully charged, it allows you to check whether the opponent's submarine is in a chosen sector.</p>
             <p>The response will be provided to you in your next turn's input.
             Careful! Said response is in respect to the time you issued the order, so the opponent will have issued and performed orders of its own by the time you receive it.</p>
 
             <br><p><strong>Silence</strong></p>
-            The silence action requires a charge level of <const>6</const>.
+            The silence action requires an energy level of <const>6</const>.
             When fully charged, it allows you to move <const>0</const> to <const>4</const> cells in a chosen direction.  Same as with the Move action, you may not visit an island or an already visited cell, be it as a final action destination or a waypoint.<br>
             Your opponent will not know in which direction or how far you've moved.  It <i>will</i> know that you used the silence action, though.<br>
           <!-- END -->
@@ -157,7 +157,7 @@
         background-color: rgba(124, 197, 118,.1);
         padding: 2px;">
             <p><strong>Mine</strong></p>
-            The mine action requires a charge level of <const>3</const>.
+            The mine action requires an energy level of <const>3</const>.
             The mine can be placed on any cell next to you (north, east, south, west).<br>
             You can't place two own mines on the same cell. However it's possible to place your own mine on an opponent mine or the opponent's submarine itself.<br>
             Mines are only detonated by using the trigger action, not by a submarine moving onto them.<br>
@@ -170,7 +170,7 @@
             <!-- END -->
             <!-- BEGIN level4 -->
             <p><strong>Mine</strong></p>
-            The mine action requires a charge level of <const>3</const>.
+            The mine action requires an energy level of <const>3</const>.
             The mine can be placed on any cell next to you (north, east, south, west).<br>
             You can't place two own mines on the same cell. However it's possible to place your own mine on an opponent mine or the opponent's submarine itself.<br>
             Mines are only detonated by using the trigger action, not by a submarine moving onto them.<br>
