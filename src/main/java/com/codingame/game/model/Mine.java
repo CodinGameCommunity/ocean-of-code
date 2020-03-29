@@ -1,14 +1,12 @@
-package com.codingame.game;
+package com.codingame.game.model;
 
 import java.awt.*;
 
 public class Mine {
     public final Point point;
-    public final Player player;
     public boolean isActive, isBlown;
 
-    public Mine(Point point, Player player) {
+    public Mine(Point point) {
         this.point = point;
-        this.player = player;
     }
 }

@@ -1,4 +1,4 @@
-package com.codingame.game;
+package com.codingame.game.model;
 
 public class Utils {
 	public static boolean[][] copyGrid(boolean[][] source) {

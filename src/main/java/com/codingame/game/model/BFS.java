@@ -1,4 +1,4 @@
-package com.codingame.game;
+package com.codingame.game.model;
 
 import java.awt.Point;
 import java.util.LinkedList;
@@ -51,7 +51,10 @@ public class BFS {
 	}
 
 	public static Node getPathBFS(boolean[][] maze, Point src, Point dst) {
-		
+		if(!isFree(maze, dst.x, dst.y)){
+			return null;
+		}
+
 		Queue<Node> q = new LinkedList<Node>();
 		maze = Utils.copyGrid(maze);
 		maze[src.x][src.y] = true;
