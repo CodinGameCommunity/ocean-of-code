@@ -100,9 +100,14 @@
             <ul><li>You cannot move through islands.</li>
                 <li>You cannot move to a cell you have visited before.</li>
             </ul>
-            <p>You can decide what special power to charge.  The special powers are performed by different devices, who require a different amount of energy to be ready. The energy levels are separate per device, not shared.<br>
+            <br>
+            <p><strong>Powers</strong></p>
+            <p>For each move action you take, you have to decide what special power to charge.  The special powers are performed by different devices, who require a different amount of energy to be ready.</p>
+            <p>The energy levels are separate per device, not shared.  The amounts of energy needed to activate a device are also distinct per device.<br>
+              A device's energy is fully consumed when that device's power is used.  The energy level cannot grow above that device's requirement for one use of the power.<br>
+              <p>
             <!-- BEGIN level1 -->
-            In this league you can only charge the torpedo.
+            In this league you only have access to the torpedo.
             <!-- END -->
             <!-- BEGIN level2 -->
             In this league you can charge the torpedo, the sonar and the silence mode.
