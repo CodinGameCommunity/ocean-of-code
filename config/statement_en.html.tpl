@@ -124,15 +124,20 @@
             The torpedo action requires an energy level of <const>3</const>.
             When fully charged, the torpedo can be fired at an arbitrary water position within a water range of <const>4</const> cells.
             This allows the torpedo's path to contain corners and go around islands, but not through them.
-            The following image illustrates the range of a torpedo: <br>
+            The following image illustrates the range of a torpedo: <br><br>
             <img src="https://raw.githubusercontent.com/CodinGameCommunity/ocean-of-code/master/torpedoRange.png">
-            <br><p>The damage of the explosion is <const>2</const> hit points on the cell itself and <const>1</const> on its 8 neighbor cells (this includes diagonals). You can also damage yourself with a torpedo.</p>
+            <br>
+            <br><p><strong>Explosions</strong></p>
+            <p>When a torpedo <!--BEGIN level3 level4 -->or a mine <!--END-->explodes on a water cell, any submarine present on that cell and its 8 neighbors suffers a loss of hit points.  The damage is <const>2</const> hit points on the explosion cell itself and <const>1</const> hit point on its neighbor cells&mdash;this includes diagonals.</p><br>
+            <img src="https://raw.githubusercontent.com/CodinGameCommunity/ocean-of-code/master/explosion.png">
+            <br>
+            <p>Explosions damage your opponent's submarine and yours indiscriminately.  They have no effect on anything else (<!-- BEGIN level3 level4 -->mines, <!-- END -->islands).</p>
             <br>
             <!-- BEGIN level2 -->
         <div style="color: #7cc576;
         background-color: rgba(124, 197, 118,.1);
         padding: 2px;">
-            <p><strong>Sonar</strong></p>
+            <strong>Sonar</strong></p>
             <p>The sonar action requires an energy level of <const>4</const>.
               When fully charged, it allows you to check whether the opponent's submarine is in a chosen sector.</p>
             <p>The response will be provided to you in your next turn's input.
@@ -169,8 +174,10 @@
 
             <br><p><strong>Trigger</strong></p>
             The trigger action will cause a mine to explode. You can only trigger your own mines.<br>
-            Like for a torpedo, the explosion has a damage of <const>2</const> on the location of the mine and <const>1</const> damage to nearby cells (including diagonally).<br>
-            You can't trigger multiple mines in the same turn. You can't place a mine and trigger it during the same turn. Your mines damage your opponent's submarine and yours indiscriminately.<br>
+            You can't trigger multiple mines in the same turn. You can't place a mine and trigger it during the same turn.<br>
+
+            <!-- this paragraph only in level3! -->
+            Mines' explosions behave exactly as torpedoes'.<br>
             </div>
             <!-- END -->
             <!-- BEGIN level4 -->
@@ -182,8 +189,7 @@
 
             <br><p><strong>Trigger</strong></p>
             The trigger action will cause a mine to explode. You can only trigger your own mines.<br>
-            Like for a torpedo, the explosion has a damage of <const>2</const> on the location of the mine and <const>1</const> damage to nearby cells (including diagonally).<br>
-            You can't trigger multiple mines in the same turn. You can't place a mine and trigger it during the same turn. Your mines damage your opponent's submarine and yours indiscriminately.<br>
+            You can't trigger multiple mines in the same turn. You can't place a mine and trigger it during the same turn.<br>
 
             <!-- END -->
 
