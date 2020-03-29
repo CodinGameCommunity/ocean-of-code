@@ -72,7 +72,7 @@
                 At the beginning of the game, you'll receive a full 15×15 map that indicates the position of the islands.
                 You will then decide and reply where you want your submarine's <b>starting position</b> to be. <!-- actual format is *not even* (x,y), just let player read the I/O section or stub -->
             </p>
-
+            <br>
             <h2>Turns</h2>
             <p>This is a turn-based game: each player plays a turn one after the other. The whole game lasts <const>299</const> turns per player. The player with id <const>0</const> begins.</p>
             <p>During your turn, thanks to your radio frequency analysis, you will receive an indication of what your opponent has done.
@@ -81,6 +81,7 @@
             <p>
                During your turn, you must perform <b>at least one action</b>.
             </p>
+            <br>
             <h2>Actions</h2>
             <p>
                 Actions are your turn's output.  They are provided sequentially, on a single line.  You can chain several of them using a pipe symbol <const>|</const>.</p>
@@ -113,7 +114,7 @@
             <br><p><strong>Surface</strong></p>
             The surface action will reset your path of visited cells, so that you can freely move to a cell that you have previously visited.
             But surfacing has major impacts: your opponent will know in which sector you are surfacing, and you will lose <const>1</const> hit point.
-
+            <br>
             <br><p><strong>Torpedo</strong></p>
             The torpedo action requires a charge level of <const>3</const>.
             When fully charged, the torpedo can be fired at an arbitrary water position within a water range of <const>4</const> cells.
@@ -188,17 +189,17 @@
                 <tr>
                     <td><action>MOVE N TORPEDO</action></td>
                     <td><action>MOVE N</action></td>
-                    <td>The opponent will see the movement's direction (in this case: north), but not which power is charged.</td>
+                    <td>The opponent will <em>not</em> see which power is charged.</td>
                 </tr>
                 <tr>
                     <td><action>SURFACE</action></td>
                     <td><action>SURFACE 3</action></td>
-                    <td>The opponent will see that you surfaced in sector <const>3</const></td>
+                    <td>The opponent will see which sector (in this case: <const>3</const>) you surfaced in.</td>
                 </tr>
                 <tr>
                     <td><action>TORPEDO 3 5</action></td>
                     <td><action>TORPEDO 3 5</action></td>
-                    <td>The opponent will see that you fired a torpedo at <const>(3,5)</const></td>
+                    <td>The opponent will see the same order you issued.</const></td>
                 </tr>
                 <!-- BEGIN level2 -->
                 <tr style="color: #7cc576;
@@ -206,7 +207,7 @@
         padding: 2px;">
                     <td><action>SONAR 4</action></td>
                     <td><action>SONAR 4</action></td>
-                    <td>The opponent will see that you used your sonar on sector <const>4</const>.<!-- sonar result timing isn't relevant to this table --></td>
+                    <td>The opponent will see the same order you issued.<!-- sonar result timing isn't relevant to this table --></td>
                 </tr>
                 <tr style="color: #7cc576;
         background-color: rgba(124, 197, 118,.1);
@@ -220,7 +221,7 @@
                 <tr>
                     <td><action>SONAR 4</action></td>
                     <td><action>SONAR 4</action></td>
-                    <td>The opponent will see that you used your sonar on sector <const>4</const>.<!-- sonar result timing isn't relevant to this table --></td>
+                    <td>The opponent will see the same order you issued.<!-- sonar result timing isn't relevant to this table --></td>
                 </tr>
                 <tr>
                     <td><action>SILENCE N 4</action></td>
@@ -241,7 +242,7 @@
         padding: 2px;">
                     <td><action>TRIGGER 3 5</action></td>
                     <td><action>TRIGGER 3 5</action></td>
-                    <td>The opponent will see that you triggered the mine at <const>(3,5)</const>.</td>
+                    <td>The opponent will see the same order you issued.</td>
                 </tr>
                 <!-- END -->
                 <!-- BEGIN level4 -->
