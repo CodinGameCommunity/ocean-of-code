@@ -9,7 +9,7 @@
         margin-bottom: 10px;
         text-align: left;">
     <div style="text-align: center; margin-bottom: 6px">
-      <img src="//cdn.codingame.com/smash-the-code/statement/league_wood_04.png" />
+      <img src="//cdn.codingame.com/smash-the-code/statement/league_wood_04.png" alt="Wood League" />
     </div>
     <p style="text-align: center; font-weight: 700; margin-bottom: 6px;">
       <!-- BEGIN level1 -->
@@ -58,14 +58,12 @@
         </h2>
         <div><div class="statement-rules-content">
             <h2>Environment</h2>
-            <p>
             <ul>
-                <li>The <b>map</b> is a square tiling: <const>15</const> cells wide and <const>15</const> cells high.  The NW corner is <const>(0,0)</const>; the SW corner is <const>(0,14).</li>
+                <li>The <b>map</b> is a square tiling: <const>15</const> cells wide and <const>15</const> cells high.  The NW corner is <const>(0,0)</const>; the SW corner is <const>(0,14).</const></li>
                 <li>Each map cell is either open <b>water</b> or an <b>island</b>.  Islands are obstacles.  Submarines cannot move to or through islands.  Nor can torpedoes<!-- BEGIN level3 level4 --> or mines<!-- END -->.</li>
                 <li><b>Submarines</b> move on the open water cells of the map. Each player controls one submarine; both submarines move independently.  They can share the same water cell without colliding.</li>
                 <li>The map is split in <const>9</const> <b>sectors</b>.  Each sector encompasses a <const>5×5</const> block of <const>25</const> cells.  You can find the sectors' numbering in the viewer; the top left sector is number <const>1</const> and the bottom right sector is number <const>9</const>.</li>
             </ul>
-            </p>
 
             <h2>Game start</h2>
             <p>
@@ -90,13 +88,12 @@
             </p>
             <br>
             <p><strong>Move</strong></p>
-            <p>A move action has two effects:
+            <p>A move action has two effects:</p>
               <ol>
                 <li>It moves your submarine by <const>1</const> cell in a chosen direction (north, east, south, west).</li>
                 <li>It charges a special power of your choice, <i>i.e.</i> increases its energy level by <const>1</const>.</li>
               </ol>
-            </p>
-            <p>When you move, you must respect the following rules:
+            <p>When you move, you must respect the following rules:</p>
             <ul><li>You cannot move through islands.</li>
                 <li>You cannot move to a cell you have visited before.</li>
             </ul>
@@ -125,11 +122,11 @@
             When fully charged, the torpedo can be fired at an arbitrary water position within a water range of <const>4</const> cells.
             This allows the torpedo's path to contain corners and go around islands, but not through them.
             The following image illustrates the range of a torpedo: <br><br>
-            <img src="https://raw.githubusercontent.com/CodinGameCommunity/ocean-of-code/master/torpedoRange.png">
+            <img src="https://raw.githubusercontent.com/CodinGameCommunity/ocean-of-code/master/torpedoRange.png" alt="torpedo range">
             <br>
             <br><p><strong>Explosions</strong></p>
             <p>When a torpedo <!--BEGIN level3 level4 -->or a mine <!--END-->explodes on a water cell, any submarine present on that cell and its 8 neighbors suffers a loss of hit points.  The damage is <const>2</const> hit points on the explosion cell itself and <const>1</const> hit point on its neighbor cells&mdash;this includes diagonals.</p><br>
-            <img src="https://raw.githubusercontent.com/CodinGameCommunity/ocean-of-code/master/explosion.png">
+            <img src="https://raw.githubusercontent.com/CodinGameCommunity/ocean-of-code/master/explosion.png" alt="explosion range">
             <br>
             <p>Explosions damage your opponent's submarine and yours indiscriminately.  They have no effect on anything else (<!-- BEGIN level3 level4 -->mines, <!-- END -->islands).</p>
             <br>
@@ -137,7 +134,7 @@
         <div style="color: #7cc576;
         background-color: rgba(124, 197, 118,.1);
         padding: 2px;">
-            <strong>Sonar</strong></p>
+            <p><strong>Sonar</strong></p>
             <p>The sonar action requires an energy level of <const>4</const>.
               When fully charged, it allows you to check whether the opponent's submarine is in a chosen sector.</p>
             <p>The response will be provided to you in your next turn's input.
@@ -210,7 +207,7 @@
                 <tr>
                     <td><action>TORPEDO 3 5</action></td>
                     <td><action>TORPEDO 3 5</action></td>
-                    <td>The opponent will see the same order you issued.</const></td>
+                    <td>The opponent will see the same order you issued.</td>
                 </tr>
                 <!-- BEGIN level2 -->
                 <tr style="color: #7cc576;
@@ -414,6 +411,7 @@
                   <!-- BEGIN level4 -->
                   <li><const>MINE</const></li>
                   <!-- END -->
+                </ul>
             </div>
         </div>
 
