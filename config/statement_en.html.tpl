@@ -300,25 +300,7 @@
             The source code can be found here: <a href="https://github.com/CodinGameCommunity/ocean-of-code" target="_blank">https://github.com/CodinGameCommunity/ocean-of-code</a>.
         </div>
     </div>
-
-    <!-- WARNING -->
-    <div class="statement-section statement-warning">
-        <h2>
-            <span class="icon icon-warning">&nbsp;</span>
-            <span>Warning</span>
-        </h2>
-        <div class="statement-warning-content">
-          You won't immediately lose if you issue a well-formed but <b>invalid orders</b>.  Examples of such include:
-          <ul>
-            <li>Shooting a torpedo out of range, out of the map or towards an island</li>
-            <!-- BEGIN level3 level4 -->
-            <li>Placing a mine out of the map, on an island or atop another of your own</li>
-            <li>Triggering a hypothetical mine that either doesn't exist or that you don't own</li>
-            <!-- END -->
-          </ul>
-          The game referee will silently ignore those.  If there are no valid orders remaining and your order list gets reduced to nil, your orders will silently be converted to a <action>SURFACE</action>.  Take care not to get your memory of previous visited cells confused because of this!
-        </div>
-    </div>
+    
     <!-- PROTOCOL -->
     <div class="statement-section statement-protocol">
         <h2>
@@ -423,6 +405,7 @@
             <div class="text">
                 Response time first turn &le; <const>1000</const> ms
                 <br> Response time per turn &le; <const>50</const> ms
+                <br> A game ends after <const>300</const> turns per player
             </div>
         </div>
     </div>
