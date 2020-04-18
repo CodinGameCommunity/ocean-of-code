@@ -75,7 +75,7 @@ public class SonarPower implements IPower {
 			return sector;
 		}
 		catch(Exception e){
-			throw new GameException("Invalid distance on silence: " + command);
+			throw new GameException("Invalid sector on SONAR: " + command);
 		}
 	}
 }
